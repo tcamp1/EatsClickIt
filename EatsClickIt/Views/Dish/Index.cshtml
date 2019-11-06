@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EatsClickIt.Models.Dish>
+
+@{
+    ViewBag.Title = "Index";
+}
+<hr class="my-3" />
+<h4>Dishes</h4>
+
+<p>
+    @Html.ActionLink("Add", "Create", null, new { @class = "btn btn-outline-primary btn-sm" })
+</p>
+<table class="table">
+    <tr class="table-primary">
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhotoFilePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhotoFilePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DishId }, new { @class = "btn btn-outline-primary btn-sm" })
+            @Html.ActionLink("Details", "Details", new { id=item.DishId }, new { @class = "btn btn-outline-primary btn-sm" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.DishId }, new { @class = "btn btn-outline-primary btn-sm" })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,42 @@
+﻿@model EatsClickIt.Models.Uom
+
+@{
+    ViewBag.Title = "Uom - Details";
+}
+<div>
+
+    <hr class="my-3" />
+    <h4>Uom - Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UofM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UofM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+			@Html.ActionLink("Edit", "Edit", new { id = Model.UomId },  new { @class = "btn btn-outline-primary btn-sm" })
+        </div>
+    </div>
+
+	<div>
+		@Html.ActionLink("<- Back to List", "Index", null,  new { @class = "btn btn-outline-primary btn-sm" })
+	</div>
+
+</p>

@@ -1,0 +1,82 @@
+﻿@model EatsClickIt.Models.MealPlan
+
+@{
+    ViewBag.Title = "MealPlan - Details";
+}
+<div>
+
+    <hr class="my-3" />
+    <h4>MealPlan - Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhotoFilePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhotoFilePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrepTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrepTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrepTimeUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrepTimeUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostPerServing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostPerServing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+			@Html.ActionLink("Edit", "Edit", new { id = Model.MealPlanId },  new { @class = "btn btn-outline-primary btn-sm" })
+        </div>
+    </div>
+
+	<div>
+		@Html.ActionLink("<- Back to List", "Index", null,  new { @class = "btn btn-outline-primary btn-sm" })
+	</div>
+
+</p>

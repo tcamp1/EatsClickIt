@@ -1,0 +1,326 @@
+﻿@model EatsClickIt.ViewModels.MealPlanViewModel
+
+@{
+    ViewBag.Title = "Meal Plan - Add";
+}
+
+@using (Html.BeginForm())
+{
+
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal col-md-12">
+        <hr class="my-3" />
+        <h4>Meal Plan - Add</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="form-row">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.TextAreaFor(x => Model.Description, new { @class = "form-control", rows = "10", @style = "resize:both;min-width:70%" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                @Html.LabelFor(model => model.PhotoFilePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.PhotoFilePath, new { htmlAttributes = new { @class = "form-control col-md-8" } })
+                @Html.ValidationMessageFor(model => model.PhotoFilePath, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                @Html.LabelFor(model => model.PrepTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.PrepTime, new { htmlAttributes = new { @class = "form-control col-md-2" } })
+                @Html.ValidationMessageFor(model => model.PrepTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                @Html.LabelFor(model => model.PrepTimeUnit, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.PrepTimeUnit, new { htmlAttributes = new { @class = "form-control col-md-2" } })
+                @Html.ValidationMessageFor(model => model.PrepTimeUnit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                @Html.LabelFor(model => model.CostPerServing, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.CostPerServing, new { htmlAttributes = new { @class = "form-control col-md-2" } })
+                @Html.ValidationMessageFor(model => model.CostPerServing, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox">
+                @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Active)
+                @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Categories such as 'Quick' or 'Inexpensive' -->
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Meal Plan Categories</h5>
+                <table class="table" id="category-table">
+                    <!--  Load up the existing instructions here -->
+                    <thead>
+                        <tr class="table-primary">
+                            <th width="15%">Category</th>
+                            <th width="85%">Include?</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.MealPlanAssignedCategories != null)
+                        {
+                            for (var i = 0; i < Model.MealPlanAssignedCategories.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedCategories[i].MealPlanAssignedCategoryId)
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedCategories[i].MealPlanId)
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedCategories[i].MealPlanCategoryId)
+                                        @Model.MealPlanAssignedCategories[i].MealPlanCategoryDescription
+                                    </td>
+                                    <td>
+                                        <div class="checkbox">
+                                            @Html.CheckBoxFor(x => Model.MealPlanAssignedCategories[i].Active)
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <!-- Diet Plans such as 'Mediterranean' or 'Gluten-Free' -->
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Diet Plans</h5>
+                <table class="table" id="dietplan-table">
+                    <!--  Load up the existing instructions here -->
+                    <thead>
+                        <tr class="table-primary">
+                            <th width="15%">Diet Plan</th>
+                            <th width="85%">Include?</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.MealPlanAssignedDietPlans != null)
+                        {
+                            for (var i = 0; i < Model.MealPlanAssignedDietPlans.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedDietPlans[i].MealPlanDietPlanId)
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedDietPlans[i].MealPlanId)
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedDietPlans[i].DietPlanId)
+                                        @Model.MealPlanAssignedDietPlans[i].DietPlanDescription
+                                    </td>
+                                    <td>
+                                        <div class="checkbox">
+                                            @Html.CheckBoxFor(x => Model.MealPlanAssignedDietPlans[i].Active)
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <!-- Dishes -->
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Dishes</h5>
+                <table class="table" id="dish-table">
+                    <!--  Load up the existing instructions here -->
+                    <thead>
+                        <tr class="table-primary">
+                            <th width="100%">Dish</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.MealPlanAssignedDishes != null)
+                        {
+                            for (var i = 0; i < Model.MealPlanAssignedDishes.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedDishes[i].MealPlanAssignedDishId)
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedDishes[i].MealPlanId)
+                                        @Html.DropDownListFor(x => Model.MealPlanAssignedDishes[i].DishId, new SelectList(Model.DishDropDownList, "DishId", "Description", Model.MealPlanAssignedDishes[i].DishId), new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <input id="dish-count" name="dish-count" type="hidden" value="@Model.MealPlanAssignedDishes.Count()" />
+                <input type="button" id="add-dish" value="+" class="btn btn-primary btn-sm" />
+            </div>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <!-- Ingredients -->
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Ingredients (per serving)</h5>
+                <table class="table" id="ingredient-table">
+                    <!--  Load up the existing instructions here -->
+                    <thead>
+                        <tr class="table-primary">
+                            <th width="70%">Ingredient</th>
+                            <th width="15%">Quantity</th>
+                            <th width="15%">UOM</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.MealPlanAssignedIngredients != null)
+                        {
+                            for (var i = 0; i < Model.MealPlanAssignedIngredients.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedIngredients[i].MealPlanAssignedIngredientId)
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedIngredients[i].MealPlanId)
+                                        @Html.DropDownListFor(x => Model.MealPlanAssignedIngredients[i].IngredientId, new SelectList(Model.IngredientDropDownList, "IngredientId", "Description", Model.MealPlanAssignedIngredients[i].IngredientId), new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => Model.MealPlanAssignedIngredients[i].Quantity, new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(x => Model.MealPlanAssignedIngredients[i].UomId, new SelectList(Model.UomDropDownList, "UomId", "UofM", Model.MealPlanAssignedIngredients[i].UomId), new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <input id="ingredient-count" name="ingredient-count" type="hidden" value="@Model.MealPlanAssignedIngredients.Count()" />
+                <input type="button" id="add-ingredient" value="+" class="btn btn-primary btn-sm" />
+            </div>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <!-- Nutrients -->
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Nutrition Information</h5>
+                <table class="table" id="nutrient-table">
+                    <!--  Load up the existing instructions here -->
+                    <thead>
+                        <tr class="table-primary">
+                            <th width="70%">Nutrient</th>
+                            <th width="15%">Quantity</th>
+                            <th width="15%">UOM</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.MealPlanAssignedNutrients != null)
+                        {
+                            for (var i = 0; i < Model.MealPlanAssignedNutrients.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedNutrients[i].MealPlanAssignedNutrientId)
+                                        @Html.HiddenFor(x => Model.MealPlanAssignedNutrients[i].MealPlanId)
+                                        @Html.DropDownListFor(x => Model.MealPlanAssignedNutrients[i].NutritientId, new SelectList(Model.NutrientDropDownList, "NutrientId", "Description", Model.MealPlanAssignedNutrients[i].NutritientId), new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(x => Model.MealPlanAssignedNutrients[i].Quantity, new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.DropDownListFor(x => Model.MealPlanAssignedNutrients[i].UomId, new SelectList(Model.UomDropDownList, "UomId", "UofM", Model.MealPlanAssignedNutrients[i].UomId), new { @class = "form-control" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <input id="nutrient-count" name="nutrient-count" type="hidden" value="@Model.MealPlanAssignedNutrients.Count()" />
+                <input type="button" id="add-nutrient" value="+" class="btn btn-primary btn-sm" />
+            </div>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <!-- Preparation -->
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Preparation Instructions</h5>
+                <table class="table" id="preparation-table">
+                    <!--  Load up the existing instructions here -->
+                    <thead>
+                        <tr class="table-primary">
+                            <th width="15%">@Html.DisplayNameFor(model => model.Preparations[0].Sequence)</th>
+                            <th width="85%">@Html.DisplayNameFor(model => model.Preparations[0].Instruction)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Preparations != null)
+                        {
+                            for (var i = 0; i < Model.Preparations.Count(); i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(x => Model.Preparations[i].PreparationId)
+                                        @Html.HiddenFor(x => Model.Preparations[i].MealPlanId)
+                                        @Html.TextBoxFor(x => Model.Preparations[i].Sequence, new { @class = "form-control" })
+                                    </td>
+                                    <td>
+                                        @Html.TextAreaFor(x => Model.Preparations[i].Instruction, new { @class = "form-control", rows = "5", @style = "resize:both;min-width: 100%" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+                <input id="preparation-count" name="preparation-count" type="hidden" value="@Model.Preparations.Count()" />
+                <input type="button" id="add-preparation" value="+" class="btn btn-primary btn-sm" />
+            </div>
+
+        </div>
+    </div>
+
+    <div>&nbsp;</div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-outline-primary btn-sm" />
+        </div>
+    </div>
+}
+<div>&nbsp;</div>
+
+<div>
+    @Html.ActionLink("<- Back to List", "Index", null, new { @class = "btn btn-outline-primary btn-sm" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/mealplan.js")
+
+}
